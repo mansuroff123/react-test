@@ -1,44 +1,44 @@
 import './App.css';
 import { useState } from 'react'
+import Title from "./components/Title"
+
+// useState 
 
 function App() {
-  const [name, setName] = useState('John')
-
-  const [showContent, setShowContent] = useState(true)
-
   const [events, setEvents] = useState([
-    {title: "Hello my name is John", id: 1},
-    {title: "John birthday 2000", id: 2},
-    {title: "John last name is Doe", id: 3},
+    {title: "birthday party", id: 1},
+    {title: "live stream", id: 2},
+    {title: "lorem ipsum hello world", id: 3}
   ])
+  const [showEvents, setShowEvents] = useState(true)
 
-  const handleClick = () => {
-    setName('Doe')
-  }
-
+  // delete items
   const handleDelete = (id) => {
-    const filteredEvents = events.filter((event) => {
-      return event.id !== id
-    })
-    setEvents(filteredEvents)
+    setEvents((prev) => {
+      return prev.filter((event) => {
+        return event.id !== id 
+      })
+    }) 
   }
+
+
+
   return (
     <div className="App">
-      <h1>My name is {name}</h1>
-      <button onClick={handleClick}>Change name</button>
-      <hr />
-      <br />
-
-      {showContent && <button onClick={() => setShowContent(false)}>Toggle</button>}
-      {!showContent && <button onClick={() => setShowContent(true)}>Toggle</button>}
-      {showContent && events.map((event) => {
-        return (
-          <div key={event.id}>
-            <h2>{event.title}</h2>
-            <button onClick={() => handleDelete(event.id)}>Delete</button>
-          </div>
-        )
-      })}
+        <Title/>
+        {showEvents && <button onClick={() => {setShowEvents(false)}}>Hide Events</button>}
+        {!showEvents && <button onClick={() => {setShowEvents(true)}}>Show Events</button>}
+        {showEvents && <div>
+          {events.length === 0 && <div> <h5>No items left</h5> </div>}
+          {events.map((event) => {
+            return (
+              <div key={event.id}>
+                <h2>{event.title}</h2>
+                <button onClick={() => {handleDelete(event.id)}}>Delete</button>
+              </div>
+            )
+          })}
+        </div>}
     </div>
   );
 }
