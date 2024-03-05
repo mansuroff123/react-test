@@ -1,10 +1,10 @@
-const Title = () => {
+const Title = ({title, subtitle}) => {
     return (
-        <div>
-            <h1 className="title">John Kingdom👑 Events</h1>
+        <>
+            <h1 className="title">{title}</h1>
             <br />
-            <p className="subtitle">All events well be here :(</p>
-        </div>
+            <p className="subtitle">{subtitle}</p>
+        </>
     )
 }
 
